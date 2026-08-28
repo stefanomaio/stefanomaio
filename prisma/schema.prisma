@@ -1,0 +1,72 @@
+// Prisma schema for Basel Music Scene
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Venue {
+  id            String   @id @default(cuid())
+  name          String   @unique
+  address       String
+  neighborhood  String
+  website       String?
+  typicalGenres String? // comma-separated free text, e.g. "techno, house"
+  lat           Float?
+  lng           Float?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  events Event[]
+}
+
+model Tag {
+  id   String @id @default(cuid())
+  name String @unique
+
+  events EventTag[]
+}
+
+enum SubmissionStatus {
+  pending
+  approved
+  rejected
+}
+
+model Event {
+  id              String           @id @default(cuid())
+  title           String
+  description     String
+  date            DateTime // calendar date of the event
+  startTime       DateTime
+  endTime         DateTime?
+  venueId         String
+  venue           Venue            @relation(fields: [venueId], references: [id])
+  price           String?
+  infoUrl         String?
+  imageUrl        String?
+  promoter        String?
+  status          SubmissionStatus @default(pending)
+  submittedByName String?
+  submittedByEmail String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  tags EventTag[]
+
+  @@index([date])
+  @@index([status])
+}
+
+model EventTag {
+  eventId String
+  tagId   String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  tag     Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([eventId, tagId])
+}
