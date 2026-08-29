@@ -22,23 +22,32 @@ venue websites, Instagram, and word of mouth.
 ## Tech stack
 
 - [Next.js](https://nextjs.org) (App Router) + TypeScript, [Tailwind CSS](https://tailwindcss.com)
-- [Prisma](https://www.prisma.io) + SQLite (via the `better-sqlite3` driver adapter)
+- [Prisma](https://www.prisma.io) + Postgres (via the `pg` driver adapter — works with any
+  Postgres host: [Neon](https://neon.tech), [Supabase](https://supabase.com), etc.)
 - [Leaflet](https://leafletjs.com) / [react-leaflet](https://react-leaflet.js.org) for maps
 - [ics](https://www.npmjs.com/package/ics) for calendar file generation
 - [zod](https://zod.dev) for form validation
 
 ## Getting started
 
+You'll need a Postgres database — the free tier of [Neon](https://neon.tech) or
+[Supabase](https://supabase.com) works fine, or Vercel's own Storage → Marketplace →
+Neon integration if you're deploying there anyway.
+
 ```bash
 npm install
-cp .env.example .env    # then edit MODERATION_PASSWORD
-npx prisma migrate dev  # creates prisma/dev.db and applies the schema
-npx prisma db seed      # seeds known Basel venues + a few sample events
+cp .env.example .env       # then set DATABASE_URL to your Postgres connection string,
+                            # and edit MODERATION_PASSWORD / MODERATION_SECRET
+npx prisma migrate deploy  # applies the schema
+npx prisma db seed         # seeds known Basel venues + a few sample events
 npm run dev
 ```
 
 Visit `http://localhost:3000`. To review submissions, go to `/moderate`
-and sign in with the password you set in `.env`.
+and sign in with the password you set in `.env`. That page also has a
+"Seed sample venues & events" button, in case you ever need to (re)seed
+a database you can't reach a terminal for (e.g. seeding straight from a
+Vercel deployment).
 
 ## Data model
 
@@ -74,20 +83,14 @@ long random string in production.
 
 ## Deploying
 
-Designed to deploy as a single app to [Vercel](https://vercel.com) with
-no extra infrastructure. One caveat: Vercel's serverless functions have
-an ephemeral, read-only-outside-of-`/tmp` filesystem, so a SQLite file
-committed to the deploy won't persist writes (new submissions) across
-requests. For a real deployment, either:
-
-- Swap `DATABASE_URL` for a hosted Postgres database (e.g.
-  [Supabase](https://supabase.com), [Neon](https://neon.tech)) — the
-  Prisma schema only needs its `datasource` provider changed, or
-- Use a persistent SQLite-compatible service like
-  [Turso](https://turso.tech) via a different Prisma driver adapter.
-
-Local development and single-server deployments (a VPS, a container with
-a persistent disk) work fine with SQLite as-is.
+Designed to deploy as a single app to [Vercel](https://vercel.com) with no extra
+infrastructure beyond a Postgres database (Vercel's Storage tab can provision one
+via its Neon or Supabase marketplace integration in a couple of clicks). Set
+`DATABASE_URL`, `MODERATION_PASSWORD`, and `MODERATION_SECRET` as environment
+variables on the project, then deploy — the `build` script runs
+`prisma migrate deploy` before `next build`, so the schema is applied
+automatically on every deploy. Seed the venues/events once by logging into
+`/moderate` and clicking "Seed sample venues & events".
 
 ## Out of scope for v1 (later)
 

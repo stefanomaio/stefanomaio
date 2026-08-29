@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { verifySessionToken, MODERATION_COOKIE } from "@/lib/auth";
 import { LoginForm } from "@/components/LoginForm";
 import { ModerationActions } from "@/components/ModerationActions";
+import { SeedButton } from "@/components/SeedButton";
 import { formatEventDate, formatTimeRange } from "@/lib/format";
 import { logout } from "./actions";
 
@@ -45,6 +46,10 @@ export default async function ModeratePage() {
             Sign out
           </button>
         </form>
+      </div>
+
+      <div className="mb-6 rounded-lg border border-dashed border-neutral-300 p-3 dark:border-neutral-800">
+        <SeedButton />
       </div>
 
       {pending.length === 0 ? (

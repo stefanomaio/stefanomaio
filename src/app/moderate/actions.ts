@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { createSessionToken, verifySessionToken, MODERATION_COOKIE } from "@/lib/auth";
+import { seedDatabase } from "@/lib/seedData";
 
 export type LoginState = { status: "idle" | "error"; message?: string };
 
@@ -63,6 +64,15 @@ export async function rejectEvent(id: string) {
   await requireAuth();
   await prisma.event.update({ where: { id }, data: { status: "rejected" } });
   revalidatePath("/moderate");
+}
+
+export async function seedSampleData() {
+  await requireAuth();
+  const result = await seedDatabase(prisma);
+  revalidatePath("/moderate");
+  revalidatePath("/");
+  revalidatePath("/map");
+  return result;
 }
 
 const editSchema = z.object({
