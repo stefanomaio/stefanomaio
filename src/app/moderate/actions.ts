@@ -55,14 +55,39 @@ export async function logout() {
 
 export async function approveEvent(id: string) {
   await requireAuth();
-  await prisma.event.update({ where: { id }, data: { status: "approved" } });
+  const event = await prisma.event.findUniqueOrThrow({
+    where: { id },
+    select: { venueId: true },
+  });
+  await prisma.$transaction([
+    prisma.event.update({ where: { id }, data: { status: "approved" } }),
+    // If this event introduced a brand-new venue, approving the event
+    // approves the venue too — its name/address were already shown
+    // inline on the pending card, so this doesn't skip review.
+    prisma.venue.updateMany({
+      where: { id: event.venueId, status: "pending" },
+      data: { status: "approved" },
+    }),
+  ]);
   revalidatePath("/moderate");
   revalidatePath("/");
+  revalidatePath("/map");
+  revalidatePath("/submit");
 }
 
 export async function rejectEvent(id: string) {
   await requireAuth();
-  await prisma.event.update({ where: { id }, data: { status: "rejected" } });
+  const event = await prisma.event.findUniqueOrThrow({
+    where: { id },
+    select: { venueId: true },
+  });
+  await prisma.$transaction([
+    prisma.event.update({ where: { id }, data: { status: "rejected" } }),
+    prisma.venue.updateMany({
+      where: { id: event.venueId, status: "pending" },
+      data: { status: "rejected" },
+    }),
+  ]);
   revalidatePath("/moderate");
 }
 

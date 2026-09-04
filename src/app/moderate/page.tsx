@@ -71,6 +71,12 @@ export default async function ModeratePage() {
                     {event.venue.name} · {formatEventDate(event.date)} ·{" "}
                     {formatTimeRange(event.startTime, event.endTime)}
                   </p>
+                  {event.venue.status === "pending" && (
+                    <p className="mt-1 text-xs font-medium text-amber-600 dark:text-amber-400">
+                      New venue — {event.venue.address}, {event.venue.neighborhood}.
+                      Approving this event also approves the venue.
+                    </p>
+                  )}
                   <p className="mt-1 line-clamp-2 text-sm text-neutral-600 dark:text-neutral-300">
                     {event.description}
                   </p>

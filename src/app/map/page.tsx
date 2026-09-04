@@ -13,7 +13,7 @@ function startOfToday() {
 
 export default async function MapPage() {
   const venues = await prisma.venue.findMany({
-    where: { lat: { not: null }, lng: { not: null } },
+    where: { status: "approved", lat: { not: null }, lng: { not: null } },
     include: {
       events: {
         where: { status: "approved", date: { gte: startOfToday() } },

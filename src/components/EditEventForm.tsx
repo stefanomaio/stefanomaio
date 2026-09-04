@@ -37,7 +37,7 @@ export function EditEventForm({
   venues,
 }: {
   event: EventForEdit;
-  venues: { id: string; name: string }[];
+  venues: { id: string; name: string; status: string }[];
 }) {
   const boundAction = updateEvent.bind(null, event.id);
   const [state, formAction, pending] = useActionState(boundAction, initialState);
@@ -95,6 +95,7 @@ export function EditEventForm({
             {venues.map((v) => (
               <option key={v.id} value={v.id}>
                 {v.name}
+                {v.status !== "approved" ? ` (${v.status})` : ""}
               </option>
             ))}
           </select>

@@ -606,8 +606,8 @@ export async function seedDatabase(prisma: PrismaClient) {
   for (const v of venues) {
     const venue = await prisma.venue.upsert({
       where: { name: v.name },
-      update: v,
-      create: v,
+      update: { ...v, status: "approved" },
+      create: { ...v, status: "approved" },
     });
     venueRecords.push(venue);
   }

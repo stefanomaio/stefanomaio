@@ -1,9 +1,11 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { submitEvent, type SubmitFormState } from "@/app/submit/actions";
 
 const initialState: SubmitFormState = { status: "idle" };
+
+const NEW_VENUE = "__new__";
 
 function Field({
   label,
@@ -35,6 +37,8 @@ export function SubmitForm({
     submitEvent,
     initialState,
   );
+  const [venueId, setVenueId] = useState("");
+  const isNewVenue = venueId === NEW_VENUE;
 
   if (state.status === "success") {
     return (
@@ -68,15 +72,49 @@ export function SubmitForm({
       </Field>
 
       <Field label="Venue" error={errors.venueId}>
-        <select name="venueId" required className={inputClass}>
+        <select
+          name="venueId"
+          required
+          value={venueId}
+          onChange={(e) => setVenueId(e.target.value)}
+          className={inputClass}
+        >
           <option value="">Select a venue…</option>
           {venues.map((v) => (
             <option key={v.id} value={v.id}>
               {v.name}
             </option>
           ))}
+          <option value={NEW_VENUE}>My venue isn&rsquo;t listed…</option>
         </select>
       </Field>
+
+      {isNewVenue && (
+        <div className="space-y-3 rounded-lg border border-dashed border-neutral-300 p-3 dark:border-neutral-700">
+          <p className="text-xs text-neutral-500">
+            New venues are reviewed before they (and this event) go live.
+          </p>
+          <Field label="Venue name" error={errors.newVenueName}>
+            <input name="newVenueName" required className={inputClass} />
+          </Field>
+          <Field label="Address" error={errors.newVenueAddress}>
+            <input
+              name="newVenueAddress"
+              placeholder="Street, postcode, Basel"
+              required
+              className={inputClass}
+            />
+          </Field>
+          <Field label="Neighborhood" error={errors.newVenueNeighborhood}>
+            <input
+              name="newVenueNeighborhood"
+              placeholder="Kleinbasel, Gundeldingen, …"
+              required
+              className={inputClass}
+            />
+          </Field>
+        </div>
+      )}
 
       <div className="grid grid-cols-3 gap-3">
         <Field label="Date" error={errors.date}>

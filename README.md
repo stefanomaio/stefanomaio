@@ -11,7 +11,10 @@ venue websites, Instagram, and word of mouth.
 - **Event detail page** — full details, a map pin, and an "add to
   calendar" `.ics` download.
 - **Submission form** — anyone (promoters, venues, punters) can submit an
-  event. Submissions land as `pending` until reviewed.
+  event, picking from existing venues or adding a new one ("my venue
+  isn't listed…") inline. Submissions land as `pending` until reviewed;
+  a new venue is reviewed the same way (approving/rejecting the event
+  approves/rejects the venue with it).
 - **Moderation view** (`/moderate`) — a password-gated page to approve,
   edit, or reject pending submissions.
 - **Map view** (`/map`) — every venue plotted with Leaflet + OpenStreetMap

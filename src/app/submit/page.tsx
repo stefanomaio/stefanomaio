@@ -4,7 +4,10 @@ import { SubmitForm } from "@/components/SubmitForm";
 export const dynamic = "force-dynamic";
 
 export default async function SubmitPage() {
-  const venues = await prisma.venue.findMany({ orderBy: { name: "asc" } });
+  const venues = await prisma.venue.findMany({
+    where: { status: "approved" },
+    orderBy: { name: "asc" },
+  });
 
   return (
     <div className="mx-auto max-w-xl px-4 py-6">

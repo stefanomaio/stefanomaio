@@ -49,7 +49,10 @@ export default async function HomePage({
       include: { venue: true, tags: { include: { tag: true } } },
       take: 100,
     }),
-    prisma.venue.findMany({ orderBy: { name: "asc" } }),
+    prisma.venue.findMany({
+      where: { status: "approved" },
+      orderBy: { name: "asc" },
+    }),
     prisma.tag.findMany({ orderBy: { name: "asc" } }),
   ]);
 
