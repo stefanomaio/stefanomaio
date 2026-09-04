@@ -1,21 +1,12 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Bebas_Neue, Geist_Mono } from "next/font/google";
+import { Archivo } from "next/font/google";
+import Script from "next/script";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-});
-
-const bebasNeue = Bebas_Neue({
-  variable: "--font-bebas-neue",
-  weight: "400",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
 });
 
@@ -31,24 +22,36 @@ const navLinks = [
   { href: "/submit", label: "Submit" },
 ];
 
+// Applies the stored (or system) theme before paint, so there's no
+// light/dark flash on load.
+const themeInitScript = `
+(function () {
+  try {
+    var stored = localStorage.getItem("theme");
+    var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.classList.toggle("dark", dark);
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${spaceGrotesk.variable} ${bebasNeue.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${archivo.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {themeInitScript}
+        </Script>
         <header className="sticky top-0 z-40 border-b border-neutral-200 bg-neutral-50/90 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/90">
           <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
             <Link href="/" className="flex items-baseline gap-1">
-              <span className="font-display text-3xl leading-none tracking-wide text-fuchsia-500">
-                BASEL
+              <span className="text-2xl font-black tracking-tight text-fuchsia-500">
+                Basel
               </span>
-              <span className="font-display text-3xl leading-none tracking-wide text-cyan-400">
-                MUSIC
+              <span className="text-2xl font-black tracking-tight text-cyan-500 dark:text-cyan-400">
+                Music
               </span>
             </Link>
-            <nav className="flex items-center gap-4 text-sm font-semibold uppercase tracking-wide">
+            <nav className="flex items-center gap-4 text-sm font-bold uppercase tracking-wide">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -58,6 +61,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                   {link.label}
                 </Link>
               ))}
+              <ThemeToggle />
             </nav>
           </div>
         </header>

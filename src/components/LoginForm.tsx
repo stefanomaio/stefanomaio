@@ -20,6 +20,7 @@ export function LoginForm() {
         <input
           type="password"
           name="password"
+          autoComplete="current-password"
           required
           autoFocus
           className="w-full rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm outline-none focus:border-fuchsia-500 dark:border-neutral-700"

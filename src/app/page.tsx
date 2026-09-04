@@ -67,7 +67,7 @@ export default async function HomePage({
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
       <div className="mb-6">
-        <h1 className="font-display text-5xl tracking-wide text-fuchsia-500">
+        <h1 className="font-black text-4xl tracking-tight text-fuchsia-500">
           What&rsquo;s on in Basel
         </h1>
         <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">

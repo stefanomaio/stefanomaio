@@ -39,7 +39,7 @@ export default async function MapPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
-      <h1 className="font-display text-4xl tracking-wide text-cyan-500 dark:text-cyan-400">Venue map</h1>
+      <h1 className="font-black text-4xl tracking-tight text-cyan-500 dark:text-cyan-400">Venue map</h1>
       <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
         Basel is compact — most venues are a short tram ride apart.
       </p>

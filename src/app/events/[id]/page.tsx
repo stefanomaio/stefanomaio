@@ -35,7 +35,7 @@ export default async function EventDetailPage({
         />
       )}
 
-      <h1 className="font-display text-4xl leading-none tracking-wide text-fuchsia-500">
+      <h1 className="font-black text-3xl leading-tight tracking-tight text-fuchsia-500">
         {event.title}
       </h1>
 
