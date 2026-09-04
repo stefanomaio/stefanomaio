@@ -30,7 +30,7 @@ export default async function ModerateEditPage({
     <div className="mx-auto max-w-xl px-4 py-6">
       <Link
         href="/moderate"
-        className="mb-4 inline-block text-sm text-neutral-500 hover:text-lime-500"
+        className="mb-4 inline-block text-sm text-neutral-500 hover:text-fuchsia-500"
       >
         ← Back to pending
       </Link>

@@ -22,13 +22,13 @@ export function LoginForm() {
           name="password"
           required
           autoFocus
-          className="w-full rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm outline-none focus:border-lime-500 dark:border-neutral-700"
+          className="w-full rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm outline-none focus:border-fuchsia-500 dark:border-neutral-700"
         />
       </label>
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-md bg-lime-500 px-4 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-lime-400 disabled:opacity-60"
+        className="w-full rounded-md bg-fuchsia-500 px-4 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-fuchsia-400 disabled:opacity-60"
       >
         {pending ? "Checking…" : "Sign in"}
       </button>

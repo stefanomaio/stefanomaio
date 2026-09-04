@@ -18,7 +18,7 @@ export function ModerationActions({ eventId }: { eventId: string }) {
             router.refresh();
           })
         }
-        className="rounded-md bg-lime-500 px-3 py-1.5 text-xs font-semibold text-neutral-950 transition hover:bg-lime-400 disabled:opacity-60"
+        className="rounded-md bg-fuchsia-500 px-3 py-1.5 text-xs font-semibold text-neutral-950 transition hover:bg-fuchsia-400 disabled:opacity-60"
       >
         Approve
       </button>

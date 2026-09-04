@@ -6,6 +6,7 @@ import { LoginForm } from "@/components/LoginForm";
 import { ModerationActions } from "@/components/ModerationActions";
 import { SeedButton } from "@/components/SeedButton";
 import { formatEventDate, formatTimeRange } from "@/lib/format";
+import { tagColorClasses } from "@/lib/tagColors";
 import { logout } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -78,7 +79,7 @@ export default async function ModeratePage() {
                       {event.tags.map(({ tag }) => (
                         <span
                           key={tag.name}
-                          className="rounded-full bg-lime-500/10 px-2 py-0.5 text-[11px] font-medium text-lime-700 dark:text-lime-400"
+                          className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${tagColorClasses(tag.name)}`}
                         >
                           {tag.name}
                         </span>
@@ -93,7 +94,7 @@ export default async function ModeratePage() {
               <div className="mt-3 flex items-center justify-between">
                 <Link
                   href={`/moderate/${event.id}`}
-                  className="text-sm underline hover:text-lime-500"
+                  className="text-sm underline hover:text-fuchsia-500"
                 >
                   Edit details
                 </Link>

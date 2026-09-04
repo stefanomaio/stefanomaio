@@ -7,7 +7,7 @@ import { ModerationActions } from "@/components/ModerationActions";
 const initialState: EditState = { status: "idle" };
 
 const inputClass =
-  "w-full rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm outline-none focus:border-lime-500 dark:border-neutral-700";
+  "w-full rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm outline-none focus:border-fuchsia-500 dark:border-neutral-700";
 
 function toDateInputValue(d: Date) {
   return d.toISOString().slice(0, 10);
@@ -59,7 +59,7 @@ export function EditEventForm({
           </p>
         )}
         {state.status === "success" && (
-          <p className="rounded-md bg-lime-500/10 px-3 py-2 text-sm text-lime-700 dark:text-lime-400">
+          <p className="rounded-md bg-fuchsia-500/10 px-3 py-2 text-sm text-fuchsia-700 dark:text-fuchsia-400">
             {state.message}
           </p>
         )}

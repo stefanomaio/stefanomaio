@@ -67,12 +67,12 @@ export default async function HomePage({
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight">
+        <h1 className="font-display text-5xl tracking-wide text-fuchsia-500">
           What&rsquo;s on in Basel
         </h1>
         <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
           Live and electronic music, aggregated in one calendar.{" "}
-          <a href="/api/feed.ics" className="underline hover:text-lime-500">
+          <a href="/api/feed.ics" className="underline hover:text-fuchsia-500">
             Subscribe via iCal
           </a>
         </p>
@@ -90,7 +90,7 @@ export default async function HomePage({
       {events.length === 0 ? (
         <p className="rounded-lg border border-dashed border-neutral-300 p-8 text-center text-neutral-500 dark:border-neutral-800">
           No events match those filters yet.{" "}
-          <a href="/submit" className="underline hover:text-lime-500">
+          <a href="/submit" className="underline hover:text-fuchsia-500">
             Know one? Submit it.
           </a>
         </p>

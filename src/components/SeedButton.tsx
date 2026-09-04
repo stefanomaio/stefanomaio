@@ -22,7 +22,7 @@ export function SeedButton() {
             router.refresh();
           })
         }
-        className="rounded-md border border-neutral-300 px-3 py-1.5 text-xs font-medium transition hover:border-lime-500 disabled:opacity-60 dark:border-neutral-700"
+        className="rounded-md border border-neutral-300 px-3 py-1.5 text-xs font-medium transition hover:border-fuchsia-500 disabled:opacity-60 dark:border-neutral-700"
       >
         {isPending ? "Seeding…" : "Seed sample venues & events"}
       </button>

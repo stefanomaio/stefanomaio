@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk, Bebas_Neue, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+});
+
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas-neue",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -29,22 +35,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${bebasNeue.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
         <header className="sticky top-0 z-40 border-b border-neutral-200 bg-neutral-50/90 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/90">
           <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
-            <Link href="/" className="flex items-baseline gap-1.5">
-              <span className="text-lg font-bold tracking-tight">
-                Basel<span className="text-lime-500">Music</span>
+            <Link href="/" className="flex items-baseline gap-1">
+              <span className="font-display text-3xl leading-none tracking-wide text-fuchsia-500">
+                BASEL
+              </span>
+              <span className="font-display text-3xl leading-none tracking-wide text-cyan-400">
+                MUSIC
               </span>
             </Link>
-            <nav className="flex items-center gap-4 text-sm font-medium">
+            <nav className="flex items-center gap-4 text-sm font-semibold uppercase tracking-wide">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-neutral-600 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                  className="text-neutral-600 transition hover:text-fuchsia-500 dark:text-neutral-400 dark:hover:text-cyan-400"
                 >
                   {link.label}
                 </Link>
@@ -56,7 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <footer className="border-t border-neutral-200 py-6 text-center text-xs text-neutral-500 dark:border-neutral-800 dark:text-neutral-500">
           <p>
             Basel Music Scene — a community calendar. Know an event? {" "}
-            <Link href="/submit" className="underline hover:text-lime-500">
+            <Link href="/submit" className="underline hover:text-fuchsia-500">
               Submit it
             </Link>
             .

@@ -24,7 +24,7 @@ function Field({
 }
 
 const inputClass =
-  "w-full rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm outline-none focus:border-lime-500 dark:border-neutral-700";
+  "w-full rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm outline-none focus:border-fuchsia-500 dark:border-neutral-700";
 
 export function SubmitForm({
   venues,
@@ -38,7 +38,7 @@ export function SubmitForm({
 
   if (state.status === "success") {
     return (
-      <div className="rounded-lg border border-lime-500/40 bg-lime-500/10 p-4 text-sm text-lime-800 dark:text-lime-300">
+      <div className="rounded-lg border border-fuchsia-500/40 bg-fuchsia-500/10 p-4 text-sm text-fuchsia-800 dark:text-fuchsia-300">
         {state.message}
       </div>
     );
@@ -141,7 +141,7 @@ export function SubmitForm({
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-md bg-lime-500 px-4 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-lime-400 disabled:opacity-60"
+        className="w-full rounded-md bg-fuchsia-500 px-4 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-fuchsia-400 disabled:opacity-60"
       >
         {pending ? "Submitting…" : "Submit event"}
       </button>

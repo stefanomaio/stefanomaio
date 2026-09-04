@@ -3,6 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { formatEventDate, formatTimeRange } from "@/lib/format";
 import { MapView } from "@/components/MapView";
+import { tagColorClasses } from "@/lib/tagColors";
 
 export default async function EventDetailPage({
   params,
@@ -20,7 +21,7 @@ export default async function EventDetailPage({
     <div className="mx-auto max-w-2xl px-4 py-6">
       <Link
         href="/"
-        className="mb-4 inline-block text-sm text-neutral-500 hover:text-lime-500"
+        className="mb-4 inline-block text-sm text-neutral-500 hover:text-fuchsia-500"
       >
         ← Back to events
       </Link>
@@ -34,7 +35,9 @@ export default async function EventDetailPage({
         />
       )}
 
-      <h1 className="text-2xl font-bold tracking-tight">{event.title}</h1>
+      <h1 className="font-display text-4xl leading-none tracking-wide text-fuchsia-500">
+        {event.title}
+      </h1>
 
       <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-neutral-600 dark:text-neutral-400">
         <span className="font-medium">{formatEventDate(event.date)}</span>
@@ -53,7 +56,7 @@ export default async function EventDetailPage({
           {event.tags.map(({ tag }) => (
             <span
               key={tag.name}
-              className="rounded-full bg-lime-500/10 px-2 py-0.5 text-xs font-medium text-lime-700 dark:text-lime-400"
+              className={`rounded-full px-2 py-0.5 text-xs font-medium ${tagColorClasses(tag.name)}`}
             >
               {tag.name}
             </span>
@@ -68,7 +71,7 @@ export default async function EventDetailPage({
       <div className="mt-6 flex flex-wrap gap-2">
         <a
           href={`/api/events/${event.id}/ics`}
-          className="rounded-md bg-lime-500 px-4 py-2 text-sm font-medium text-neutral-950 transition hover:bg-lime-400"
+          className="rounded-md bg-fuchsia-500 px-4 py-2 text-sm font-medium text-neutral-950 transition hover:bg-fuchsia-400"
         >
           Add to calendar (.ics)
         </a>
@@ -77,7 +80,7 @@ export default async function EventDetailPage({
             href={event.infoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium transition hover:border-lime-500 dark:border-neutral-700"
+            className="rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium transition hover:border-fuchsia-500 dark:border-neutral-700"
           >
             Tickets / info
           </a>
@@ -99,7 +102,7 @@ export default async function EventDetailPage({
             href={event.venue.website}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1 inline-block text-sm underline hover:text-lime-500"
+            className="mt-1 inline-block text-sm underline hover:text-fuchsia-500"
           >
             Venue website
           </a>
