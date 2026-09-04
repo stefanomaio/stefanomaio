@@ -62,12 +62,21 @@ Vercel deployment).
 
 ## Seed data
 
-The seed script (`prisma/seed.ts`) adds six Basel venues that were
-verified active as of writing: Kaserne Basel, Nordstern, Kaschemme,
-Hirscheneck, Volkshaus Basel, and Das Viertel (the club formerly known
-as Hinterhof — it was rebranded in 2017, so only the current name is
-seeded). Each comes with a handful of sample events dated a few days out
-so the calendar isn't empty on first run.
+The seed script (`prisma/seed.ts`, sharing logic with `src/lib/seedData.ts`
+so it can also run from the "Seed sample venues & events" button on
+`/moderate`) adds six core Basel venues that were verified active as of
+writing: Kaserne Basel, Nordstern, Kaschemme, Hirscheneck, Volkshaus
+Basel, and Das Viertel (the club formerly known as Hinterhof — it was
+rebranded in 2017, so only the current name is seeded), each with a
+demo event dated relative to whenever the seed runs.
+
+It also includes ~30 real events (and the ~19 additional venues they're
+at) pulled from [denkmal.org](https://denkmal.org/en/basel), a
+non-commercial, locals-run Basel event calendar — these are dated to
+their actual listed date/time rather than relative to the seed run,
+since they're real events rather than demo placeholders. denkmal.org
+has no public API, so this was a one-time manual pull rather than an
+automated import; re-running the seed action won't refresh them.
 
 There's no scraper against Instagram, Facebook, or Resident Advisor —
 that's fragile and ToS-risky. The submission form is the intended
